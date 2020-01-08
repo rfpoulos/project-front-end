@@ -21,6 +21,8 @@
 				(valueChange)="getDate($event)"
 			></app-input>
 		</div>
-		<p>{{ description }}</p>
+		<p *ngFor="let item of card | keyvalue">
+			{{ item.key }}: {{item.value}} 
+		</p>
 	</div>
 </app-wrapper>

@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   public view$: Subject<string> = new Subject();
   public view = 'map';
   public data$: BehaviorSubject<any[]> = new BehaviorSubject([]);
-  public description = '';
+  public card = {};
 
   constructor(
 	  private serverService: ServerService
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
 	this.view$.subscribe((view) => {
 		this.view = view;
 		if (view === 'table') {
-			this.description = '';
+			this.card = {};
 		}
 	});
   }
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
 	  this.data$.next(data);
   }
 
-  public getDescription(description: string): void {
-	  this.description = description;
+  public getDescription(card: any): void {
+	  this.card = card;
   }
 }

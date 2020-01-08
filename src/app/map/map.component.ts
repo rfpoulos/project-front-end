@@ -21,7 +21,7 @@ export class MapComponent implements AfterViewInit {
 		this.data$.subscribe((data) => {
 			this.clearMarkers();
 			data.forEach((datum) => {
-				this.addMarker(datum.Latitude, datum.Longitude, datum.Description);
+				this.addMarker(datum.Latitude, datum.Longitude, datum);
 			});
 		});
 	}
@@ -52,7 +52,7 @@ export class MapComponent implements AfterViewInit {
 		tiles.addTo(this.map);
 	}
 
-	private addMarker(lat: number, lng: number, description: string): void {
+	private addMarker(lat: number, lng: number, datum: any): void {
 		const latLng = new L.LatLng(lat, lng);
 		const icon = {
 			icon: L.icon({
@@ -67,7 +67,7 @@ export class MapComponent implements AfterViewInit {
 		newMarker.addTo(this.map);
 
 		newMarker.on('click', () => {
-			this.getDescription.emit(description);
+			this.getDescription.emit(datum);
 			this.adjustCenter(lat, lng);
 		});
 
