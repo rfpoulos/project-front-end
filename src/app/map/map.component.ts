@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 import { BehaviorSubject } from 'rxjs';
 
@@ -9,6 +9,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MapComponent implements AfterViewInit {
 	@Input() data$: BehaviorSubject<any[]>;
+	@Output() getDescription: EventEmitter<string> = new EventEmitter();
 
 	private map: L.Map;
 	private markers: L.Marker[] = [];
@@ -20,7 +21,7 @@ export class MapComponent implements AfterViewInit {
 		this.data$.subscribe((data) => {
 			this.clearMarkers();
 			data.forEach((datum) => {
-				this.addMarker(datum.Latitude, datum.Longitude);
+				this.addMarker(datum.Latitude, datum.Longitude, datum.Description);
 			});
 		});
 	}
@@ -51,11 +52,24 @@ export class MapComponent implements AfterViewInit {
 		tiles.addTo(this.map);
 	}
 
-	private addMarker(lat: number, lng: number): void {
+	private addMarker(lat: number, lng: number, description: string): void {
 		const latLng = new L.LatLng(lat, lng);
-		const newMarker = new L.Marker(latLng);
+		const icon = {
+			icon: L.icon({
+			  iconSize: [ 25, 41 ],
+			  iconAnchor: [ 13, 41 ],
+			  iconUrl: 'leaflet/marker-icon.png',
+			  shadowUrl: 'leaflet/marker-shadow.png'
+			})
+		  };
+		const newMarker = new L.Marker(latLng, icon);
 
 		newMarker.addTo(this.map);
+
+		newMarker.on('click', () => {
+			this.getDescription.emit(description);
+			this.adjustCenter(lat, lng);
+		});
 
 		this.markers.push(newMarker);
 	}

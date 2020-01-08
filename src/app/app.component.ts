@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   public view$: Subject<string> = new Subject();
   public view = 'map';
   public data$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  public description = '';
 
   constructor(
 	  private serverService: ServerService
@@ -26,6 +27,9 @@ export class AppComponent implements OnInit {
 
 	this.view$.subscribe((view) => {
 		this.view = view;
+		if (view === 'table') {
+			this.description = '';
+		}
 	});
   }
 
@@ -37,5 +41,9 @@ export class AppComponent implements OnInit {
   public async getCity(city: string): Promise<void> {
 	  const data = await this.serverService.getDataByCity(city);
 	  this.data$.next(data);
+  }
+
+  public getDescription(description: string): void {
+	  this.description = description;
   }
 }

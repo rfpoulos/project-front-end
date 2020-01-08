@@ -4,19 +4,23 @@
 	<div class="data-display">
 		<app-map *ngIf="view === 'map'"
 			[data$]="data$"
+			(getDescription)="getDescription($event)"
 		></app-map>
 		<app-table *ngIf="view === 'table'"
 			[data$]="data$"
 		></app-table>
 	</div>
-	<app-city-autocomplete *ngIf="route === 'city'"
-		(getCity)="getCity($event)"
-	></app-city-autocomplete>
-	<div>
-		<app-input *ngIf="route === 'date'"
-			label="Date: "
-			type="date"
-			(valueChange)="getDate($event)"
-		></app-input>
+	<div class="right-panel">
+		<app-city-autocomplete *ngIf="route === 'city'"
+			(getCity)="getCity($event)"
+		></app-city-autocomplete>
+		<div>
+			<app-input *ngIf="route === 'date'"
+				label="Date: "
+				type="date"
+				(valueChange)="getDate($event)"
+			></app-input>
+		</div>
+		<p>{{ description }}</p>
 	</div>
 </app-wrapper>

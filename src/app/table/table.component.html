@@ -1,1 +1,12 @@
-<p>table works!</p>
+<table>
+	<tr>
+		<th *ngFor="let header of headers">
+		{{header}}
+		</th>
+	</tr>
+	<tr *ngFor="let datum of data$ | async">
+		<td *ngFor="let header of headers">
+		{{datum[header]}}
+		</td>
+	</tr>
+</table>

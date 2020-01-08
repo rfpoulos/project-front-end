@@ -9,9 +9,16 @@ import { BehaviorSubject } from 'rxjs';
 export class TableComponent implements OnInit {
 	@Input() data$: BehaviorSubject<any[]>;
 
+	public headers: string[] = [];
+	public data: any[] = [];
+
   constructor() { }
 
   ngOnInit() {
+	  this.data$.subscribe((data) => {
+		this.headers = data[0] ? Object.keys(data[0]) : [];
+		this.data = data;
+	  });
   }
 
 }
