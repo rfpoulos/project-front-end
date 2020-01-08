@@ -14,6 +14,7 @@ export class CityAutocompleteComponent implements OnInit {
 
 	public cityResults: string[] = [];
 	public value = '';
+	public noResults = false;
 
 	readonly placesUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${googleKey}&types=(cities)&input=`;
 	readonly proxyUrl = 'https://cors-anywhere.herokuapp.com/';
@@ -40,10 +41,16 @@ export class CityAutocompleteComponent implements OnInit {
 
 	public onClickCity(city: string): void {
 		this.value = city;
+		this.cityResults = [];
 		this.getCity.emit(city);
 	}
 
 	private async generateCityOptions(query: string): Promise<void> {
+		if (!query) {
+			this.cityResults = [];
+			this.noResults = false;
+			return;
+		}
 		const results = await fetch(this.proxyUrl + this.placesUrl + 'GA, ' + query);
 		const parsed = await results.json();
 		const cityResults = map(parsed.predictions, (prediction) => {
@@ -52,6 +59,12 @@ export class CityAutocompleteComponent implements OnInit {
 		this.cityResults = cityResults;
 		if (this.cityResults.length === 1) {
 			this.getCity.emit(this.cityResults[0]);
+		}
+
+		if (!this.cityResults.length) {
+			this.noResults = true;
+		} else {
+			this.noResults = false;
 		}
 	}
 }

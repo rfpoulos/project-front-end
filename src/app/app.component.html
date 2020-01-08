@@ -1,4 +1,17 @@
-<app-wrapper>
-	<app-map></app-map>
-	<app-city-autocomplete></app-city-autocomplete>
+<app-wrapper [route$]="route$"
+	[view$]="view$"
+>
+	<div class="data-display">
+		<app-map *ngIf="view === 'map'"></app-map>
+	</div>
+	<app-city-autocomplete *ngIf="route === 'city'"
+		(getCity)="getCity($event)"
+	></app-city-autocomplete>
+	<div>
+		<app-input *ngIf="route === 'date'"
+			label="Date: "
+			type="date"
+			(valueChange)="getDate($event)"
+		></app-input>
+	</div>
 </app-wrapper>

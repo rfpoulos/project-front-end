@@ -1,5 +1,31 @@
 <div class="container">
 	<header class="header">
+		<div>
+			<span class="menu-option"
+				*ngIf="view !== 'table'"
+				(click)="viewClick('table')" 
+			>
+				Show Table
+			</span>
+			<span class="menu-option"
+				*ngIf="view !== 'map'"
+				(click)="viewClick('map')" 
+			>
+				Show Map
+			</span>
+		</div>
+		<div>
+			<span class="menu-option"
+				(click)="optionClick('city')"
+			>
+				By City
+			</span>
+			<span class="menu-option"
+				(click)="optionClick('date')"
+			>
+				By Date
+			</span>
+		</div>
 	</header>
 
 	<div class="main">

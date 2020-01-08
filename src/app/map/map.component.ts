@@ -44,8 +44,13 @@ export class MapComponent implements AfterViewInit {
 
 		newMarker.addTo(this.map);
 
-		newMarker.on('click', () => {
-			this.map.removeLayer(newMarker);
+		this.markers.push(newMarker);
+	}
+
+	private clearMarkers() {
+		this.markers.forEach(marker => {
+			this.map.removeLayer(marker);
 		});
+		this.markers = [];
 	}
 }

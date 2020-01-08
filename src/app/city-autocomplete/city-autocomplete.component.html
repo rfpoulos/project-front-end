@@ -1,11 +1,15 @@
-<app-input label="City"
+<app-input label="City: "
 	(valueChange)="valueChange($event)"
 	[value]="value"
+	type="text"
 ></app-input>
 <ul>
 	<li *ngFor="let city of cityResults"
 		(click)="onClickCity(city)"
 	>
 		{{ city }}
+	</li>
+	<li *ngIf="noResults">
+		No results
 	</li>
 </ul>

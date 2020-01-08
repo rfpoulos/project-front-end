@@ -7,9 +7,20 @@
 }
 
 .header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
 	height: 100px;
 	background-color: purple;
+}
+
+.menu-option {
+	padding: 10px;
+	margin: 10px;
+	font-weight: bold;
+	border: 1px solid black;
+	background-color: white;
 }
 
 .main {
