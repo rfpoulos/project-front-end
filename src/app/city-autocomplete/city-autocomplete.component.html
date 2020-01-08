@@ -1,0 +1,11 @@
+<app-input label="City"
+	(valueChange)="valueChange($event)"
+	[value]="value"
+></app-input>
+<ul>
+	<li *ngFor="let city of cityResults"
+		(click)="onClickCity(city)"
+	>
+		{{ city }}
+	</li>
+</ul>
