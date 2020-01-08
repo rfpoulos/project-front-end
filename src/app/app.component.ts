@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { ServerService } from './server.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +13,11 @@ export class AppComponent implements OnInit {
   public route = 'city';
   public view$: Subject<string> = new Subject();
   public view = 'map';
+  public data$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
-  constructor() {}
+  constructor(
+	  private serverService: ServerService
+  ) {}
 
   ngOnInit() {
 	this.route$.subscribe((route) => {
@@ -25,7 +29,13 @@ export class AppComponent implements OnInit {
 	});
   }
 
-  public getDate(date): void {
-	  console.log(date);
+  public async getDate(date: string): Promise<void> {
+	  const data = await this.serverService.getDataByDate(date);
+	  this.data$.next(data);
+  }
+
+  public async getCity(city: string): Promise<void> {
+	  const data = await this.serverService.getDataByCity(city);
+	  this.data$.next(data);
   }
 }

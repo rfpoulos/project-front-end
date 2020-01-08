@@ -2,7 +2,12 @@
 	[view$]="view$"
 >
 	<div class="data-display">
-		<app-map *ngIf="view === 'map'"></app-map>
+		<app-map *ngIf="view === 'map'"
+			[data$]="data$"
+		></app-map>
+		<app-table *ngIf="view === 'table'"
+			[data$]="data$"
+		></app-table>
 	</div>
 	<app-city-autocomplete *ngIf="route === 'city'"
 		(getCity)="getCity($event)"

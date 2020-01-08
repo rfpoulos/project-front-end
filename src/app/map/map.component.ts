@@ -1,5 +1,6 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 import * as L from 'leaflet';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-map',
@@ -7,6 +8,8 @@ import * as L from 'leaflet';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements AfterViewInit {
+	@Input() data$: BehaviorSubject<any[]>;
+
 	private map: L.Map;
 	private markers: L.Marker[] = [];
 
@@ -14,6 +17,16 @@ export class MapComponent implements AfterViewInit {
 
 	ngAfterViewInit(): void {
 		this.initMap(33.7490, -84.3880, 6);
+		this.data$.subscribe((data) => {
+			this.clearMarkers();
+			data.forEach((datum) => {
+				this.addMarker(datum.Latitude, datum.Longitude);
+			});
+		});
+	}
+
+	OnDestroy() {
+		this.data$.unsubscribe();
 	}
 
 	public adjustCenter(lat: number, lng: number): void {

@@ -7,6 +7,7 @@ import { MapComponent } from './map/map.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { InputComponent } from './input/input.component';
 import { CityAutocompleteComponent } from './city-autocomplete/city-autocomplete.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { CityAutocompleteComponent } from './city-autocomplete/city-autocomplete
     MapComponent,
     WrapperComponent,
     InputComponent,
-    CityAutocompleteComponent
+    CityAutocompleteComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
