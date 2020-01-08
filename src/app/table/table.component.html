@@ -6,7 +6,7 @@
 	</tr>
 	<tr *ngFor="let datum of data$ | async">
 		<td *ngFor="let header of headers">
-		{{datum[header]}}
+			{{datum[header]}}
 		</td>
 	</tr>
 </table>
